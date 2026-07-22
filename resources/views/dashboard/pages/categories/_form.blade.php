@@ -1,3 +1,4 @@
+
 <div class="card-body">
     <div class="form-group">
         {{-- <label for="exampleInputEmail1">Category Name</label>
@@ -10,7 +11,9 @@
             <p class="text-danger">{{ $message }}</p>
         @enderror --}}
         <x-form.input id="name" name="name"  type="text" placeholder="Enter Category Name" label="Enter Category Name" :value="$category->name" />
-    </div>
+         
+            <x-auto-translate group="categories" field="name" :model="$category" />
+        </div>
     <div class="form-group">
         <label for="exampleInputPassword1">Description</label>
         <textarea name="description" class="form-control" id="" cols="30"
@@ -18,6 +21,8 @@
         @if ($errors->has('description'))
             <p class="text-danger">{{ $errors->first('description') }}</p>
         @endif
+                    <x-auto-translate group="categories" field="description" :model="$category" />
+
     </div>
 
 

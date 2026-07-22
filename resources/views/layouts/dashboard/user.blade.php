@@ -36,6 +36,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Contact</a>
                 </li>
+            <li class="nav-item d-flex align-items-center">
+                <a href="{{ url('/'.app()->getLocale()) }}">
+                    <span class="ml-1">{{ __('dashboard.go_to_website') }}</span>
+                </a>
+            </li>
             </ul>
 
             <!-- Right navbar links -->

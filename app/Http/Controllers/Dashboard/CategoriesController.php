@@ -33,7 +33,10 @@ class CategoriesController extends Controller
     public function create()
     {
         $category = new Category();
-        return view('dashboard.pages.categories.create', compact('category'));
+        return view('dashboard.pages.categories.create',[
+            'category' => $category,
+           
+        ]);
     }
     public function store(Request $request)
     {
@@ -74,20 +77,32 @@ class CategoriesController extends Controller
     public function edit($id)
     {
         $category = Category::find($id);
-        return view('dashboard.pages.categories.edit', compact('category'));
+        return view('dashboard.pages.categories.edit', [
+            'category' => $category,
+           
+        ]);
     }
     public function update(Request $request, $id)
     {
         $category = Category::find($id);
+        $oldName = $category->name;
+        $oldDescription = $category->description;
         $category->name = $request->name;
         $category->description = $request->description;
         $category->status = $request->status;
         $category->save();
+        if($oldName !== $category->name){
+            $category->renameTranslationKey($oldName, $category->name);
+        }
+        if($oldDescription !== $category->description){
+            $category->renameTranslationKey($oldDescription, $category->description);
+        }
         return redirect(route('dashboard.categories.index'))->with('success', 'Category Updated Successfully');
     }
     public function destroy($id)
     {
         $category = Category::find($id);
+        $category->deleteTranslationsFromJson();
         $category->delete();
         return redirect(route('dashboard.categories.index'))->with('success', 'Category Deleted Successfully');
     }

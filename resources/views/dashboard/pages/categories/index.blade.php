@@ -42,6 +42,7 @@
                     <th>Products Count</th>
                     <th>Status</th>
                     <th>Description</th>
+                    <th>Translation</th>
                     <th colspan="2">Actions</th>
                 </tr>
             </thead>
@@ -53,6 +54,14 @@
                         <td>{{ $item->products_count }}</td>
                         <td>{{ $item->status }}</td>
                         <td>{{ $item->description }}</td>
+                        <td>
+                            @foreach (config('translation.target_locales') as $locale )
+                                <span class="me-2 small {{ $item->hasTranslationFor('name',$locale)?'text-success' : 'text-muted' }}">
+                                    {{ strtoupper($locale) }}
+                                    <i class="fas {{ $item->hasTranslationFor('name',$locale) ? 'fa-check' : 'fa-times' }}"></i>
+                                </span>
+                            @endforeach
+                        </td>
                         <td>
                             <a class="btn-primary" href="{{ route('dashboard.categories.edit', $item->id) }}">
                                 Edit
