@@ -1,0 +1,13 @@
+{
+    "package": "melbedran/role-permession",
+    "name": "Melbedran-Role-permession",
+    "installed_at": "2026-07-24T17:18:57+00:00",
+    "published": {
+        "config": "C:\\Users\\Asus\\Desktop\\new all\\www\\store\\config\\role-permession.php",
+        "routes": "C:\\Users\\Asus\\Desktop\\new all\\www\\store\\routes/role-permession.php",
+        "controllers": "C:\\Users\\Asus\\Desktop\\new all\\www\\store\\app\\Http/Controllers/RolePermession",
+        "js": "C:\\Users\\Asus\\Desktop\\new all\\www\\store\\resources\\js/vendor/melbedran-role-permession",
+        "views": "C:\\Users\\Asus\\Desktop\\new all\\www\\store\\resources\\views/vendor/role-permession",
+        "migrations_tag": "role-permession-migrations"
+    }
+}

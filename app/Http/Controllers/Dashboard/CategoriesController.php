@@ -6,12 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Rules\FilterRule;
+use Illuminate\Support\Facades\Gate;
 
 class CategoriesController extends Controller
 {
     //
     public function index()
     {
+        Gate::authorize('categories.view');
         $request = request();
         $query= Category::query();
         $name= $request->query('name');
@@ -32,6 +34,8 @@ class CategoriesController extends Controller
 
     public function create()
     {
+        Gate::authorize('categories.create');
+
         $category = new Category();
         return view('dashboard.pages.categories.create',[
             'category' => $category,
@@ -40,6 +44,8 @@ class CategoriesController extends Controller
     }
     public function store(Request $request)
     {
+        Gate::authorize('categories.create');
+
         $request->validate([
             // 'name' => 'required',
             // 'description' => 'required',
@@ -76,6 +82,8 @@ class CategoriesController extends Controller
     }
     public function edit($id)
     {
+        Gate::authorize('categories.edit');
+
         $category = Category::find($id);
         return view('dashboard.pages.categories.edit', [
             'category' => $category,
@@ -84,6 +92,8 @@ class CategoriesController extends Controller
     }
     public function update(Request $request, $id)
     {
+        Gate::authorize('categories.edit');
+
         $category = Category::find($id);
         $oldName = $category->name;
         $oldDescription = $category->description;
@@ -101,6 +111,8 @@ class CategoriesController extends Controller
     }
     public function destroy($id)
     {
+        Gate::authorize('categories.delete');
+
         $category = Category::find($id);
         $category->deleteTranslationsFromJson();
         $category->delete();

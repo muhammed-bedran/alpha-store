@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
+use Melbedran\RolePermession\Concerns\HasRoles;
+
 class Admin extends Authenticatable
 {
-    use TwoFactorAuthenticatable;
+    use TwoFactorAuthenticatable, HasRoles;
     //
     protected $fillable = [
         'name',

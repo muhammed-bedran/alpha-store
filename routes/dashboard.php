@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\Dashboard\AdminsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\CategoriesController;
@@ -14,7 +14,7 @@ Route::group([
 'as' => 'dashboard.',
 'middleware' => ['auth:admin']
 ], function () {
-
+Route::resource('admins',AdminsController::class);
 
 Route::get('/index',[DashboardController::class,'index'])->name('index');
 Route::get('/categories/index', [CategoriesController::class, 'index'])->name('categories.index');

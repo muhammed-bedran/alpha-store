@@ -18,5 +18,6 @@ Route::group([
 Route::get('/',[HomeController::class,'index'])->name('home');
 });
 // require __DIR__.'/auth.php';
+require __DIR__.'/role-permession.php';
 require __DIR__ . '/dashboard.php';
 require __DIR__ . '/user.php';
