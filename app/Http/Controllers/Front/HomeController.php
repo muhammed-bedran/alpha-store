@@ -10,13 +10,18 @@ class HomeController extends Controller
 {
     //
     public function index(){
-        // $locale = app()->getLocale();
-        // $products =Product::query()
-        // ->VisibleForLocale($locale)
-        // ->leatest()
-        // ->get()
-        // ->filter(fn(Product $product) => $product->isVisibleForLocale($locale))
-        // ->values();
-        return view('front.pages.index');
+        $locale = app()->getLocale();
+        $products =Product::query()
+        ->with('category','store')
+        ->VisibleForLocale($locale)
+        ->leatest()
+        ->get()
+        ->filter(fn(Product $product) => $product->isVisibleForLocale($locale))
+        ->values();
+
+    
+        return view('front.pages.index',[
+            'products' => $products
+        ]);
     }
 }
