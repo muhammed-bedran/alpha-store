@@ -53,7 +53,7 @@ class CheckoutController extends Controller
             'customer_name' => $data['customer_name'],
             'phone' => $data['phone'],
             'address' => $data['address'],
-            'note' => $data['note'],
+            // 'note' => $data['note'],
             'payment_method' => 'cash_on_delivery',
             'shipping_cost' => 0,
             'subtotal' => $subtotal,

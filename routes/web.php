@@ -23,7 +23,7 @@ Route::post('/cart/items',[CartController::class,'store'])->name('cart.items.sto
 Route::patch('/cart/items/{cartItem}',[CartController::class,'update'])->name('cart.items.update');
 Route::delete('/cart/items/{cartItem}',[CartController::class,'destroy'])->name('cart.items.destroy');
 
-Route::get('/checkout',[CheckoutController::class,'checkout'])->name('checkout.create');
+Route::get('/checkout',[CheckoutController::class,'create'])->name('checkout.create');
 Route::post('/checkout',[CheckoutController::class,'store'])->name('checkout.store');
 Route::get('/checkout/success/{order}',[CheckoutController::class,'success'])->name('checkout.success');
 

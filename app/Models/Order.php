@@ -39,6 +39,10 @@ class Order extends Model
      {
          return $this->hasMany(OrderItem::class);
      }
+     public function scopeForStore($query, int $storeId)
+     {
+        return $query->whereHas('items', fn($q) => $q->where('store_id', $storeId));
+     }
 }
 // muhammed bedran  // ORD-20260727-ABCD
 // laptop
