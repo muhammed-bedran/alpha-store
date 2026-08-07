@@ -14,7 +14,7 @@ class HomeController extends Controller
         $products =Product::query()
         ->with('category','store')
         ->VisibleForLocale($locale)
-        ->leatest()
+        ->latest()
         ->get()
         ->filter(fn(Product $product) => $product->isVisibleForLocale($locale))
         ->values();
