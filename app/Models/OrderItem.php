@@ -21,4 +21,7 @@ class OrderItem extends Model
     public function store(){
         return $this->belongsTo(Store::class);
     }
+    public function lineTotal(){
+        return (float) $this->price * $this->quantity;
+    }
 }

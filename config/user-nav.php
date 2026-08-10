@@ -28,6 +28,11 @@ return [
         'route' => 'user.2fa'
     ],
     [
+        'title' => 'Orders',
+        'icon' => 'nav-icon fas fa-shopping-cart',
+        'route' => 'user.orders.index'
+    ],
+    [
         'title' => 'Profile',
         'icon' => 'nav-icon fas fa-user',
         'route' => 'user.profile.edit'

@@ -3,6 +3,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\DashboardController;
+use App\Http\Controllers\User\OrderController;
 use App\Http\Controllers\User\StoreController;
 use App\Http\Controllers\User\ProductController;
 use App\Http\Controllers\User\TeamController;
@@ -26,6 +27,9 @@ Route::group([
     Route::get('/store/create', [StoreController::class, 'create'])->name('store.create');
     Route::post('/store', [StoreController::class, 'store'])->name('store.store');
 
+        // orders
+        Route::get('/orders',[OrderController::class,'index'])->name('orders.index');
+        Route::get('/orders/{order}',[OrderController::class,'show'])->name('orders.show');
     // store routes with middleware user.has.store
     Route::middleware('user.has.store')->group(function () {
         Route::get('/store', [StoreController::class, 'edit'])->name('store.edit');

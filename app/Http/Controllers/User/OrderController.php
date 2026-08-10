@@ -38,9 +38,11 @@ class OrderController extends Controller
     {
         $store = Auth::user()->store;
         $this->authorizeStoreOrder($order, $store->id);
-        return view('user.pages.orders.show', [
-            'order' => $order,
-        ]);
-
+        $storeItems = $order->items()
+        ->where('store_id', $store->id)
+        ->get();
+        $storeTotal = $storeItems->sum(fn($item)=> $item->lineTotal());
+       return view('user.pages.orders.show', compact('order', 'storeItems', 'storeTotal','store'));
     }
+
 }
