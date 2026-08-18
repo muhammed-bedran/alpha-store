@@ -13,6 +13,7 @@
         "laravel/tinker": "^2.10.1",
         "mcamara/laravel-localization": "^2.4",
         "melbedran/role-permession": "1.2",
+        "nwidart/laravel-modules": "*",
         "stichoza/google-translate-php": "^5.3"
     },
     "require-dev": {
@@ -83,7 +84,8 @@
         "sort-packages": true,
         "allow-plugins": {
             "pestphp/pest-plugin": true,
-            "php-http/discovery": true
+            "php-http/discovery": true,
+            "wikimedia/composer-merge-plugin": true
         }
     },
     "minimum-stability": "stable",
