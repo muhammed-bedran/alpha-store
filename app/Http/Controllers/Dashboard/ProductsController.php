@@ -13,10 +13,33 @@ class ProductsController extends Controller
     //
     public function index()
     {
-        
-      return view('dashboard.pages.products.index',[
-        'products' => Product::with(['category','store'])->latest()->paginate(10)
-      ]);
+        $request = request();
+        $query = Product::query()->with(['category', 'store']);
+
+        $name = $request->query('name');
+        $status = $request->query('status');
+
+        if ($name) {
+            $query->where('name', 'like', "%{$name}%");
+        }
+
+        if ($status) {
+            $query->where('status', $status);
+        }
+
+        if ($request->filled('category_id')) {
+            $query->where('category_id', $request->integer('category_id'));
+        }
+
+        if ($request->filled('store_id')) {
+            $query->where('store_id', $request->integer('store_id'));
+        }
+
+        return view('dashboard.pages.products.index', [
+            'products' => $query->latest()->paginate(10)->withQueryString(),
+            'categories' => Category::pluck('name', 'id'),
+            'stores' => Store::pluck('name', 'id'),
+        ]);
     }
     public function create()
     {
@@ -31,9 +54,12 @@ class ProductsController extends Controller
       $request->validate([
         'name' => 'required|string|max:255',
         'description' => 'nullable|string',
+        'price' => 'required|numeric|gte:0',
         'status' => 'required|in:active,inactive',
         'category_id' => 'required|exists:categories,id',
         'store_id' => 'required|exists:stores,id',
+      ], [
+        'price.gte' => 'Price must be 0 or greater.',
       ]);
       Product::create($request->all());
       return redirect()->route('dashboard.products.index')->with('success','Product Created Successfully');
@@ -51,9 +77,12 @@ class ProductsController extends Controller
         $request->validate([
           'name' => 'required|string|max:255',
           'description' => 'nullable|string',
+          'price' => 'required|numeric|gte:0',
           'status' => 'required|in:active,inactive',
           'category_id' => 'required|exists:categories,id',
           'store_id' => 'required|exists:stores,id',
+        ], [
+          'price.gte' => 'Price must be 0 or greater.',
         ]);
         $product->update($request->all());
         return redirect()->route('dashboard.products.index')->with('success','Product Updated Successfully');

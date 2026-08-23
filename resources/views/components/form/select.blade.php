@@ -2,24 +2,26 @@
     'label' => '',
     'name' => '',
     'options' => [],
-    'selected'
+    'selected' => null,
+    'useOld' => true,
 ])
 <label for="{{ $name }}">{{ $label }}</label>
-<select class="
-form-control
-@error('{{ $name }}')
-    is-invalid
-@enderror
-" name="{{ $name }}">
-    @foreach ($options as $value => $text )
-     <option
-      value="{{ $value }}"
-    @if($value == old($name, $selected)) selected @endif
-      > 
-        {{ $text }}
-     </option>
+<select
+    id="{{ $name }}"
+    name="{{ $name }}"
+    {{ $attributes->merge([
+        'class' => 'form-control' . ($errors->has($name) ? ' is-invalid' : ''),
+    ]) }}
+>
+    @foreach ($options as $value => $text)
+        @php
+            $current = $useOld ? old($name, $selected) : $selected;
+        @endphp
+        <option value="{{ $value }}" @selected((string) $value === (string) $current)>
+            {{ $text }}
+        </option>
     @endforeach
 </select>
-@error('{{ $name }}')
+@error($name)
     <p class="text-danger">{{ $message }}</p>
 @enderror

@@ -118,4 +118,14 @@ class CategoriesController extends Controller
         $category->delete();
         return redirect(route('dashboard.categories.index'))->with('success', 'Category Deleted Successfully');
     }
+
+    public function products(Category $category)
+    {
+        Gate::authorize('categories.view');
+
+        return view('dashboard.pages.categories.products', [
+            'category' => $category,
+            'products' => $category->products()->with('store')->latest()->paginate(10),
+        ]);
+    }
 }

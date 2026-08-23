@@ -43,7 +43,7 @@
                     <th>Status</th>
                     <th>Description</th>
                     <th>Translation</th>
-                    <th colspan="2">Actions</th>
+                    <th colspan="3">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -61,6 +61,11 @@
                                     <i class="fas {{ $item->hasTranslationFor('name',$locale) ? 'fa-check' : 'fa-times' }}"></i>
                                 </span>
                             @endforeach
+                        </td>
+                        <td>
+                            <a class="btn-info" href="{{ route('dashboard.categories.products', $item->id) }}">
+                                Products
+                            </a>
                         </td>
                         <td>
                             <a class="btn-primary" href="{{ route('dashboard.categories.edit', $item->id) }}">
@@ -117,8 +122,8 @@
             border-radius: 4px;
         }
 
-        .btn-primary {
-            background-color: #007bff;
+        .btn-primary,
+        .btn-info {
             padding: 5px 10px;
             border-radius: 4px;
             font-size: 14px;
@@ -126,7 +131,13 @@
             color: white;
         }
 
-        .btn-primary {}
+        .btn-primary {
+            background-color: #007bff;
+        }
+
+        .btn-info {
+            background-color: #17a2b8;
+        }
     </style>
 
 @endpush

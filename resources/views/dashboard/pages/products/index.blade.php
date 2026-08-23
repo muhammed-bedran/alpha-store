@@ -15,15 +15,33 @@
 
 
         <form action="{{ URL::current() }}" method="get" class="row g-3 mt-3 mb-3">
-           <div class="col-md-4">
+           <div class="col-md-3">
                 <input type="text" name="name" class="form-control" placeholder="Search by name" value="{{ request()->query('name') }}">
            </div>
-           <div class="col-md-3">
+           <div class="col-md-2">
                 <select name="status" class="form-control">
                     <option value="">All Statuses</option>
                     <option {{ request()->query('status') == 'active' ? 'selected' : '' }} value="active">Active</option>
                     <option {{ request()->query('status') == 'inactive' ? 'selected' : '' }} value="inactive">Inactive</option>
                 </select>
+           </div>
+           <div class="col-md-2">
+                <x-form.select
+                    label="Category"
+                    name="category_id"
+                    :options="['' => 'All Categories'] + $categories->toArray()"
+                    :selected="request()->query('category_id', '')"
+                    :useOld="false"
+                />
+           </div>
+           <div class="col-md-2">
+                <x-form.select
+                    label="Store"
+                    name="store_id"
+                    :options="['' => 'All Stores'] + $stores->toArray()"
+                    :selected="request()->query('store_id', '')"
+                    :useOld="false"
+                />
            </div>
 
             <button type="submit" class="btn btn-primary">Search</button>
@@ -132,7 +150,7 @@
 @push('scripts')
 <script>
     document.getElementById('resetBtn').addEventListener('click', function() {
-        window.location.href = "{{ route('dashboard.stores.index') }}";
+        window.location.href = "{{ route('dashboard.products.index') }}";
     });
 </script>
 @endpush

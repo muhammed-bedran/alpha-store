@@ -23,6 +23,7 @@ Route::post('/categories/store', [CategoriesController::class, 'store'])->name('
 Route::get('/categories/edit/{id}', [CategoriesController::class, 'edit'])->name('categories.edit');
 Route::put('/categories/update/{id}', [CategoriesController::class, 'update'])->name('categories.update');
 Route::delete('/categories/delete/{id}', [CategoriesController::class, 'destroy'])->name('categories.destroy');
+Route::get('/categories/{category}/products', [CategoriesController::class, 'products'])->name('categories.products');
 // Route::resource('categories',CategoriesController::class)->except(['show']);
 Route::match(['post','put'],'/translate/{group}/{field}',[TranslationController::class,'translate'])
 ->name('translations.translate')

@@ -36,8 +36,18 @@
     />
     <div class="form-group">
     
-        <x-form.input id="name" name="price" type="text" placeholder="Enter Product Price" label="Enter Product Price"
-            :value="$product->price" />
+        <x-form.input id="price" name="price" type="number" step="0.01" min="0" placeholder="Enter Product Price" label="Enter Product Price"
+            :value="$product->price" onkeydown="return !['-','e','E','+'].includes(event.key)" oninput="if (this.value !== '' && Number(this.value) < 0) this.value = 0;" />
     </div>
 
 </div>
+
+@push('scripts')
+<script>
+    document.getElementById('price')?.addEventListener('input', function () {
+        if (this.value !== '' && Number(this.value) < 0) {
+            this.value = 0;
+        }
+    });
+</script>
+@endpush
