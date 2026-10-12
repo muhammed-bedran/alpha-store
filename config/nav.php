@@ -39,6 +39,12 @@ return [
         'title'=>'Admins',
         'icon'=>'nav-icon fas fa-users',
         'route'=> 'dashboard.admins.index',
+    ],
+    [
+        'title'=>'HR / الموارد البشرية',
+        'icon'=>'nav-icon fas fa-user-tie',
+        'route'=> 'dashboard.hr.index',
+        'ability' => 'hr.view',
     ]
    
 ];

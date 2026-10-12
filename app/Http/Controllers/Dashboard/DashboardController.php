@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 
 use App\Models\Category;
+use App\Models\HrEmployee;
 use App\Models\Store;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -19,6 +20,7 @@ class DashboardController extends Controller
             'categories_count' => Category::count(),
             'stores_count' => Store::count(),
             'users_count' => User::count(),
+            'employees_count' => HrEmployee::count(),
         ];
         return view('dashboard.pages.index', compact('stats'));
     }

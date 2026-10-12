@@ -16,6 +16,13 @@ return [
         'categories.create' => 'Create Categories',
         'categories.edit' => 'edit Categories',
         'categories.delete' => 'Delete Categories',
+        'hr.view' => 'View HR',
+        'hr.departments' => 'Manage HR Departments',
+        'hr.employees' => 'Manage HR Employees',
+        'hr.leaves' => 'Manage HR Leave Requests',
+        'hr.bonuses' => 'Manage HR Bonuses',
+        'hr.deductions' => 'Manage HR Deductions',
+        'hr.payrolls' => 'Manage HR Payroll',
     ],
 
     /*

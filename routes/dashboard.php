@@ -7,6 +7,13 @@ use App\Http\Controllers\Dashboard\CategoriesController;
 use App\Http\Controllers\Dashboard\StoresController;
 use App\Http\Controllers\Dashboard\ProductsController;
 use App\Http\Controllers\Dashboard\TranslationController;
+use App\Http\Controllers\Dashboard\HrController;
+use App\Http\Controllers\Dashboard\HrDepartmentsController;
+use App\Http\Controllers\Dashboard\HrEmployeesController;
+use App\Http\Controllers\Dashboard\HrLeaveRequestsController;
+use App\Http\Controllers\Dashboard\HrBonusesController;
+use App\Http\Controllers\Dashboard\HrDeductionsController;
+use App\Http\Controllers\Dashboard\HrPayrollsController;
 
 // Route::group([],function(){});
 Route::group([
@@ -41,6 +48,23 @@ Route::match(['post','put','delete'],'/translate/{group}/{field}/delete',[Transl
 Route::resource('stores',StoresController::class);
 Route::resource('products',ProductsController::class);
 
+Route::prefix('hr')->name('hr.')->group(function () {
+    Route::get('/', [HrController::class, 'index'])->name('index');
+    Route::get('/about', [HrController::class, 'about'])->name('about');
+    Route::resource('departments', HrDepartmentsController::class)->except(['show']);
+    Route::resource('employees', HrEmployeesController::class)->except(['show']);
+    Route::resource('leaves', HrLeaveRequestsController::class)
+        ->parameters(['leaves' => 'leave'])
+        ->except(['show']);
+    Route::post('leaves/{leave}/approve', [HrLeaveRequestsController::class, 'approve'])->name('leaves.approve');
+    Route::post('leaves/{leave}/reject', [HrLeaveRequestsController::class, 'reject'])->name('leaves.reject');
+    Route::resource('bonuses', HrBonusesController::class)
+        ->parameters(['bonuses' => 'bonus'])
+        ->except(['show']);
+    Route::resource('deductions', HrDeductionsController::class)->except(['show']);
+    Route::resource('payrolls', HrPayrollsController::class);
+    Route::post('payrolls/{payroll}/pay', [HrPayrollsController::class, 'pay'])->name('payrolls.pay');
+});
 
 Route::get('/2fa', [App\Http\Controllers\Dashboard\TwoFactorAuthenticationController::class, 'index'])->name('admin.2fa');
 });

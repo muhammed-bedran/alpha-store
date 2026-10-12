@@ -2,8 +2,11 @@
 
 namespace App\Services;
 
+use GuzzleHttp\Exception\ClientException;
 use Illuminate\Support\Facades\Cache;
+use RuntimeException;
 use Stichoza\GoogleTranslate\GoogleTranslate;
+use Throwable;
 
 /**
  * خدمة الترجمة التلقائية عبر Google Translate (مكتبة Stichoza).
@@ -54,11 +57,33 @@ class TranslationService
 
         $cacheKey = 'trans:' . md5($text . $sourceLang . $targetLang);
 
-        return Cache::remember($cacheKey, now()->addDays(30), function () use ($text, $targetLang, $sourceLang) {
+        if (Cache::has($cacheKey)) {
+            return Cache::get($cacheKey);
+        }
+
+        try {
             $this->translator->setSource($sourceLang);
             $this->translator->setTarget($targetLang);
 
-            return $this->translator->translate($text);
-        });
+            $translation = $this->translator->translate($text);
+        } catch (ClientException $exception) {
+            if ($exception->getResponse()?->getStatusCode() === 429) {
+                throw new RuntimeException(
+                    'تم تجاوز حد طلبات الترجمة من Google مؤقتاً. انتظر بضع دقائق، أو اكتب الترجمة يدوياً واحفظها.'
+                );
+            }
+
+            throw new RuntimeException('تعذّرت الترجمة الآن. حاول مرة أخرى لاحقاً أو أدخل الترجمة يدوياً.');
+        } catch (Throwable) {
+            throw new RuntimeException('تعذّرت الترجمة الآن. حاول مرة أخرى لاحقاً أو أدخل الترجمة يدوياً.');
+        }
+
+        if (! is_string($translation) || trim($translation) === '') {
+            throw new RuntimeException('فشلت الترجمة.');
+        }
+
+        Cache::put($cacheKey, $translation, now()->addDays(30));
+
+        return $translation;
     }
 }

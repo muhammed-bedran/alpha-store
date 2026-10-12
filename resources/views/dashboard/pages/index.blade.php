@@ -69,6 +69,21 @@
             </div>
             <!-- /.col-md-6 -->
         </div>
+        <div class="row">
+            <div class="col-lg-3 col-6">
+                <div class="small-box bg-primary">
+                    <div class="inner">
+                        <h3>{{ $stats['employees_count'] }}</h3>
+                        <p>HR Employees</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <a href="{{ route('dashboard.hr.index') }}" class="small-box-footer">الموارد البشرية <i
+                            class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+        </div>
         <!-- /.row -->
         
     </div><!-- /.container-fluid -->
